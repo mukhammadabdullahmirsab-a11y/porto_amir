@@ -63,7 +63,7 @@ export default function Navbar() {
               <Code2 className="w-5 h-5 text-white" />
             </div>
             <span className="font-display text-xl font-bold tracking-tight">
-              <span className="text-white">Amir</span>
+              <span className="text-white">Abdullah Mirsab</span>
               <span className="gradient-text">.</span>
             </span>
           </motion.a>
