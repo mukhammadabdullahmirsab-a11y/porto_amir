@@ -1,13 +1,13 @@
 export const personalInfo = {
   name: "Amir",
-  fullName: "Amir Fadillah",
+  fullName: "Mukhammad Abdullah Mirsab",
   roles: ["Full Stack Developer", "Web Developer", "UI/UX Enthusiast"],
   tagline: "Crafting digital experiences with clean code & creative designs",
   bio: `Saya adalah seorang Full Stack Developer yang passionate dalam membangun
         aplikasi web modern dan user-friendly. Dengan pengalaman dalam berbagai
         teknologi, saya selalu berusaha menciptakan solusi digital yang
         inovatif dan berdampak.`,
-  email: "amir@example.com",
+  email: "mukhammadabdullahmirsab@gmail.com",
   phone: "+62 812-3456-7890",
   location: "Indonesia",
   social: {
