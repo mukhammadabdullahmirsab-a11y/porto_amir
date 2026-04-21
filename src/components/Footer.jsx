@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Heart, Code2, ArrowUp } from 'lucide-react';
+import { Heart, ArrowUp } from 'lucide-react';
 import { personalInfo, navLinks } from '../data/portfolioData';
 
 export default function Footer() {
@@ -13,15 +13,12 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <Code2 className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-display text-lg font-bold">
-                {personalInfo.name}<span className="gradient-text">.</span>
-              </span>
+            <div className="flex items-center gap-1">
+              <span className="text-lg font-bold text-white">Abdullah</span>
+              <span className="text-lg font-bold gradient-text">Mirsab</span>
+              <span className="text-xl font-bold gradient-text">.</span>
             </div>
-            <p className="text-sm text-text-secondary flex items-center gap-1">
+            <p className="text-sm text-white/30 flex items-center gap-1">
               Built with <Heart size={14} className="text-rose-500 fill-rose-500" /> using React & Tailwind CSS
             </p>
           </div>
@@ -36,7 +33,7 @@ export default function Footer() {
                   e.preventDefault();
                   document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm text-text-secondary hover:text-white transition-colors duration-300"
+                className="text-sm text-white/30 hover:text-white transition-colors duration-300"
               >
                 {link.name}
               </a>
@@ -46,7 +43,7 @@ export default function Footer() {
           {/* To top */}
           <motion.button
             onClick={scrollToTop}
-            className="w-10 h-10 rounded-xl glass flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/10 transition-all duration-300"
+            className="w-10 h-10 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:border-indigo-500/50 hover:bg-indigo-600/10 transition-all duration-300"
             whileHover={{ scale: 1.1, y: -3 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Scroll to top"
@@ -56,8 +53,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/5 text-center">
-          <p className="text-xs text-text-secondary">
-            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
+          <p className="text-xs text-white/20">
+            © {new Date().getFullYear()} {personalInfo.fullName}. All rights reserved.
           </p>
         </div>
       </div>

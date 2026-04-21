@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Mail } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
@@ -14,9 +14,7 @@ function TypingEffect({ words }) {
     const timeout = setTimeout(() => {
       if (!isDeleting) {
         setText(currentWord.slice(0, text.length + 1));
-        if (text === currentWord) {
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
+        if (text === currentWord) setTimeout(() => setIsDeleting(true), 2000);
       } else {
         setText(currentWord.slice(0, text.length - 1));
         if (text === '') {
@@ -25,146 +23,92 @@ function TypingEffect({ words }) {
         }
       }
     }, isDeleting ? 50 : 100);
-
     return () => clearTimeout(timeout);
   }, [text, isDeleting, index, words]);
 
   return (
     <span>
       {text}
-      <span className="typing-cursor" />
+      <span className="inline-block w-0.5 h-[1em] bg-indigo-400 ml-1 align-middle animate-pulse" />
     </span>
   );
 }
 
-function FloatingParticles() {
-  const particles = useMemo(() =>
-    Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      animDelay: `${Math.random() * 15}s`,
-      size: `${3 + Math.random() * 4}px`,
-      opacity: 0.2 + Math.random() * 0.4,
-    })),
-  []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p) => (
-        <div
-          key={p.id}
-          className="particle"
-          style={{
-            left: p.left,
-            top: p.top,
-            animationDelay: p.animDelay,
-            width: p.size,
-            height: p.size,
-            opacity: p.opacity,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 export default function Hero() {
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
   };
-
-  const itemVariants = {
+  const item = {
     hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   };
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <FloatingParticles />
 
-      {/* Extra glow orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Glow Orbs */}
+      <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-purple-600/15 rounded-full blur-[100px] pointer-events-none" />
 
       <motion.div
-        variants={containerVariants}
+        variants={container}
         initial="hidden"
         animate="visible"
-        className="section-container flex flex-col items-center text-center"
+        className="section-container flex flex-col items-center text-center px-4"
       >
-        {/* Badge */}
-        <motion.div variants={itemVariants}>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-text-secondary font-medium mb-8">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        {/* Availability Badge */}
+        <motion.div variants={item} className="mb-8">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-white/60 font-medium backdrop-blur-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
             Available for work
           </span>
         </motion.div>
 
         {/* Greeting */}
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl text-text-secondary font-medium mb-4"
-        >
+        <motion.p variants={item} className="text-base md:text-lg text-white/50 font-medium mb-3 tracking-wide">
           Hello, I'm
         </motion.p>
 
         {/* Name */}
         <motion.h1
-          variants={itemVariants}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight mb-6"
+          variants={item}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
         >
-          <span className="gradient-text">{personalInfo.name}</span>
+          <span className="gradient-text">{personalInfo.fullName}</span>
         </motion.h1>
 
-        {/* Role with Typing Effect */}
+        {/* Typing Role */}
         <motion.div
-          variants={itemVariants}
-          className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-white/80 mb-6 h-[42px]"
+          variants={item}
+          className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/70 mb-6 min-h-[2.5rem]"
         >
           <TypingEffect words={personalInfo.roles} />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
-          variants={itemVariants}
-          className="text-base md:text-lg text-text-secondary max-w-xl mb-10 leading-relaxed"
+          variants={item}
+          className="text-sm md:text-base text-white/40 max-w-lg mb-10 leading-relaxed"
         >
           {personalInfo.tagline}
         </motion.p>
 
         {/* CTA Buttons */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row items-center gap-4 mb-12"
-        >
+        <motion.div variants={item} className="flex flex-col sm:flex-row items-center gap-4 mb-12">
           <motion.a
             href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="px-8 py-3.5 rounded-2xl font-semibold text-white bg-gradient-to-r from-primary to-accent shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+            onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }); }}
+            className="px-7 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            View Projects
+            View My Work
           </motion.a>
           <motion.a
             href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="px-8 py-3.5 rounded-2xl font-semibold text-white glass hover:bg-white/10 transition-all duration-300"
+            onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+            className="px-7 py-3 rounded-xl font-semibold text-white border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -173,7 +117,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Social Links */}
-        <motion.div variants={itemVariants} className="flex items-center gap-4 mb-16">
+        <motion.div variants={item} className="flex items-center gap-3 mb-16">
           {[
             { icon: GithubIcon, href: personalInfo.social.github, label: 'GitHub' },
             { icon: LinkedinIcon, href: personalInfo.social.linkedin, label: 'LinkedIn' },
@@ -185,7 +129,7 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="w-11 h-11 rounded-xl glass flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/10 transition-all duration-300"
+              className="w-11 h-11 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-white/50 hover:text-white hover:border-indigo-500/50 hover:bg-indigo-600/10 transition-all duration-300"
               whileHover={{ scale: 1.15, y: -3 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -196,21 +140,18 @@ export default function Hero() {
 
         {/* Scroll Indicator */}
         <motion.div
-          variants={itemVariants}
+          variants={item}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
           <motion.a
             href="#about"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={(e) => { e.preventDefault(); document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }); }}
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center gap-2 text-text-secondary hover:text-white transition-colors"
+            className="flex flex-col items-center gap-2 text-white/30 hover:text-white/70 transition-colors"
           >
             <span className="text-xs font-medium tracking-widest uppercase">Scroll Down</span>
-            <ArrowDown size={18} />
+            <ArrowDown size={16} />
           </motion.a>
         </motion.div>
       </motion.div>

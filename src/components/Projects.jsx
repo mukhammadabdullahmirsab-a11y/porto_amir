@@ -17,39 +17,32 @@ function ProjectCard({ project, onClick }) {
       className="group cursor-pointer"
       onClick={onClick}
     >
-      <div className="glass rounded-2xl overflow-hidden hover:bg-white/[0.06] transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 h-full flex flex-col">
-        {/* Image / Gradient Placeholder */}
-        <div className={`relative h-48 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
+      <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:border-indigo-500/30 hover:bg-white/[0.07] transition-all duration-500 h-full flex flex-col">
+        {/* Header Gradient */}
+        <div className={`relative h-44 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
           <div className="absolute inset-0 bg-black/20" />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-sm">
-            <motion.div
-              initial={{ scale: 0 }}
-              whileHover={{ scale: 1 }}
-              className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center"
-            >
+            <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
               <Eye className="w-5 h-5 text-white" />
-            </motion.div>
+            </div>
           </div>
-          {/* Floating title */}
-          <div className="absolute bottom-4 left-4 right-4">
-            <h3 className="text-xl font-display font-bold text-white drop-shadow-lg">
-              {project.title}
-            </h3>
+          <div className="absolute bottom-3 left-4 right-4">
+            <h3 className="text-lg font-bold text-white drop-shadow-lg">{project.title}</h3>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-6 flex-1 flex flex-col">
-          <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-1">
+        <div className="p-5 flex-1 flex flex-col">
+          <p className="text-sm text-white/40 leading-relaxed mb-4 flex-1 line-clamp-3">
             {project.description}
           </p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-1.5 mb-4">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-lg bg-white/5 text-xs font-medium text-text-secondary border border-white/5"
+                className="px-2.5 py-1 rounded-md bg-white/5 text-xs font-medium text-white/50 border border-white/5"
               >
                 {tag}
               </span>
@@ -57,14 +50,14 @@ function ProjectCard({ project, onClick }) {
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-3 pt-2 border-t border-white/5">
+          <div className="flex items-center gap-3 pt-3 border-t border-white/5">
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-2 text-xs font-medium text-text-secondary hover:text-white transition-colors"
-              whileHover={{ x: 3 }}
+              className="flex items-center gap-1.5 text-xs font-medium text-white/40 hover:text-white transition-colors"
+              whileHover={{ x: 2 }}
             >
               <GithubIcon size={14} />
               Code
@@ -75,8 +68,8 @@ function ProjectCard({ project, onClick }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-2 text-xs font-medium text-text-secondary hover:text-accent transition-colors"
-                whileHover={{ x: 3 }}
+                className="flex items-center gap-1.5 text-xs font-medium text-white/40 hover:text-indigo-400 transition-colors"
+                whileHover={{ x: 2 }}
               >
                 <ExternalLink size={14} />
                 Live Demo
@@ -91,7 +84,6 @@ function ProjectCard({ project, onClick }) {
 
 function ProjectModal({ project, onClose }) {
   if (!project) return null;
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -105,7 +97,7 @@ function ProjectModal({ project, onClose }) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.85, y: 30 }}
         transition={{ type: 'spring', bounce: 0.2 }}
-        className="glass-strong rounded-3xl w-full max-w-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+        className="rounded-3xl border border-white/10 bg-[#030014]/95 backdrop-blur-xl w-full max-w-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Image */}
@@ -123,15 +115,15 @@ function ProjectModal({ project, onClose }) {
 
         {/* Content */}
         <div className="p-8">
-          <h3 className="text-2xl font-display font-bold mb-3">{project.title}</h3>
-          <p className="text-text-secondary leading-relaxed mb-6">{project.description}</p>
+          <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
+          <p className="text-white/50 leading-relaxed mb-6">{project.description}</p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1.5 rounded-lg bg-white/5 text-sm font-medium text-text-secondary border border-white/5"
+                className="px-3 py-1.5 rounded-lg bg-white/5 text-sm font-medium text-white/50 border border-white/5"
               >
                 {tag}
               </span>
@@ -144,7 +136,7 @@ function ProjectModal({ project, onClose }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-xl glass text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+              className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -156,7 +148,7 @@ function ProjectModal({ project, onClose }) {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-accent text-sm font-semibold text-white shadow-lg shadow-primary/25"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -182,11 +174,11 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative">
-      {/* Decorative */}
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
+      {/* Decorative Glow */}
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-600/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="section-container">
-        {/* Section Title */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -194,13 +186,13 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-sm font-semibold tracking-widest uppercase text-primary mb-3 block">
+          <p className="text-indigo-400 font-semibold text-sm tracking-widest uppercase mb-3">
             Portfolio
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold">
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             Featured <span className="gradient-text">Projects</span>
           </h2>
-          <p className="text-text-secondary mt-4 max-w-md mx-auto">
+          <p className="text-white/40 mt-4 max-w-md mx-auto text-sm">
             A selection of my recent work and personal projects
           </p>
         </motion.div>
@@ -217,10 +209,10 @@ export default function Projects() {
             <motion.button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+              className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat
-                  ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                  : 'glass text-text-secondary hover:text-white hover:bg-white/10'
+                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
+                  : 'border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
